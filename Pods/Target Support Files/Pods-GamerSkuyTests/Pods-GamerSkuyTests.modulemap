@@ -1,0 +1,6 @@
+framework module Pods_GamerSkuyTests {
+  umbrella header "Pods-GamerSkuyTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
