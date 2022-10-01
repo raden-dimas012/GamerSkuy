@@ -1,16 +1,24 @@
 PODS:
   - Kingfisher (7.3.0)
+  - lottie-ios (3.4.2)
+  - RxSwift (6.5.0)
 
 DEPENDENCIES:
   - Kingfisher
+  - lottie-ios
+  - RxSwift
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - lottie-ios
+    - RxSwift
 
 SPEC CHECKSUMS:
   Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
+  lottie-ios: 6bbc53eef6957e4744a50321507015fba72d8ca6
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
 
-PODFILE CHECKSUM: e5e784d0dcfbb04a5d99614062d25105f3b5f262
+PODFILE CHECKSUM: f872bf9340b081ba41e39683f7d1e3b2cff16e8f
 
 COCOAPODS: 1.11.2

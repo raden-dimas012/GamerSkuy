@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var darkModeEnabled: Bool
-    @StateObject var viewModel: SettingsViewModel
+    @EnvironmentObject var viewModel: SettingsViewModel
     var body: some View {
         Form {
             Section(header: Text(viewModel.constant?.darkModeTitle ?? ""),

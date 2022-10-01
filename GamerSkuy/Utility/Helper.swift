@@ -5,13 +5,13 @@
 //  Created by Raden Dimas on 11/09/22.
 //
 
-import Foundation
-
-final class Helper {
+struct Helper {
     func returnNavBarTitle(tabSelection: Tabs) -> String {
         switch tabSelection {
         case .home: return "Home"
+        case .search: return "Search"
         case .favorite: return "Favorite"
+        case .profile: return "Profile"
         case .settings: return "Settings"
         }
     }

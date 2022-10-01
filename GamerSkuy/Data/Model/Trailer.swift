@@ -5,8 +5,6 @@
 //  Created by Raden Dimas on 19/09/22.
 //
 
-import Foundation
-
 struct Trailer: Codable, Identifiable {
     let id: Int
     let name: String

@@ -7,6 +7,8 @@ target 'GamerSkuy' do
 
   # Pods for GamerSkuy
   pod 'Kingfisher'
+  pod 'RxSwift'
+  pod 'lottie-ios'
 
   target 'GamerSkuyTests' do
     inherit! :search_paths

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SearchBarView: View {
-    @State var searchText: String = ""
-    @StateObject var viewModel: HomeViewModel
+    @State private var searchText: String = ""
+    @EnvironmentObject var viewModel: SearchViewModel
     var body: some View {
         ZStack {
             Rectangle()
@@ -19,12 +19,12 @@ struct SearchBarView: View {
                 TextField("Search ..", text: $searchText)
                 .onChange(of: searchText, perform: { newValue in
                     viewModel.querySearch = newValue
-                    viewModel.getFilteredGame(query: newValue)
+                    viewModel.searchGame(query: newValue)
                 })
                 .onSubmit {
                     withAnimation {
                         viewModel.querySearch = searchText
-                        viewModel.getFilteredGame(query: searchText)
+                        viewModel.searchGame(query: searchText)
                     }
                 }
             }

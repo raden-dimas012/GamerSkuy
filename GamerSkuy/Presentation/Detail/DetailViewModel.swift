@@ -5,15 +5,18 @@
 //  Created by Raden Dimas on 11/09/22.
 //
 
-import Foundation
+import CoreData
 
 final class DetailViewModel: ObservableObject {
     @Published var gameDetail: GameDetail?
     @Published var gameTrailer: [Trailer] = [Trailer]()
-    var services: APIServicesProtocol?
-    var constant: Constants?
+    @Published var favoriteAlert: FavoriteAlerts?
+    @Published var showFavoriteAlert: Bool = false
+    private var services: APIServicesProtocol?
+    private var constant: Constants?
     var helper: Helper?
     var id: Int?
+    private let coreDataManager = CoreDataManager.shared
     init(id: Int, services: APIServicesProtocol, constant: Constants, helper: Helper) {
         self.id = id
         self.services = services
@@ -25,6 +28,7 @@ final class DetailViewModel: ObservableObject {
         self.services = nil
         self.constant = nil
         self.helper = nil
+        debugPrint("Deinit DetailViewModel")
     }
     func getDetailGame(movieID: Int) {
         guard let services = services else {return}
@@ -41,7 +45,6 @@ final class DetailViewModel: ObservableObject {
         }
     }
     func getDetailMovieTrailer(movieID: Int) {
-        debugPrint("Running")
         guard let services = services else {return}
         services.getTrailer(movieID: movieID) { [weak self] (result) in
             switch result {

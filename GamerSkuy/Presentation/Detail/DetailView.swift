@@ -9,27 +9,34 @@ import SwiftUI
 import Kingfisher
 
 struct DetailView: View {
-    @StateObject var viewModel: DetailViewModel
+    @StateObject var detailViewModel: DetailViewModel
+    @EnvironmentObject var favoriteViewModel: FavoriteViewModel
+    @Environment(\.managedObjectContext) var context
+    @AppStorage("darkModeEnabled") private var darkModeEnabled: Bool = Theme.isNotDarkMode
     var body: some View {
         VScrollView {
             VStack(spacing: 0) {
-                if viewModel.gameDetail == nil {
+                if detailViewModel.gameDetail == nil {
                     LoadingView()
                 } else {
-                    topImageView
-                    contentView
-                    trailerView
+                    createTopImageView()
+                    createContentView()
+                    createDetailContentView()
+                    createTrailerView()
+                    createButtonFavorite()
                 }
             }
             .onAppear {
-                viewModel.getDetailGame(movieID: viewModel.id ?? 0)
-                viewModel.getDetailMovieTrailer(movieID: viewModel.id ?? 0)
+                detailViewModel.getDetailGame(movieID: detailViewModel.id ?? 0)
+                detailViewModel.getDetailMovieTrailer(movieID: detailViewModel.id ?? 0)
+                favoriteViewModel.checkIsFavorite(id: detailViewModel.id ?? 0)
             }
         }
         .navigationBarTitle("Detail Movie", displayMode: .inline)
     }
-    var topImageView: some View {
-        KFImage.url(URL(string: viewModel.gameDetail?.backgroundImage ?? ""))
+    @ViewBuilder
+    private func createTopImageView() -> some View {
+        KFImage.url(URL(string: detailViewModel.gameDetail?.backgroundImage ?? ""))
             .resizable()
             .onSuccess { success in
                 debugPrint("success: \(success)")
@@ -47,14 +54,15 @@ struct DetailView: View {
             .frame(width: 360, height: 250)
             .padding(.top, 15)
     }
-    var contentView: some View {
+    @ViewBuilder
+    private func createContentView() -> some View {
         VStack {
             Text("Title")
                 .font(.system(size: 24))
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(viewModel.gameDetail?.name ?? "")
+            Text(detailViewModel.gameDetail?.name ?? "")
                 .font(.system(size: 20))
                 .italic()
                 .fontWeight(.semibold)
@@ -66,7 +74,7 @@ struct DetailView: View {
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(viewModel.helper?.getDetailGenres(genres: viewModel.gameDetail?.genres ?? []) ?? "")
+            Text(detailViewModel.helper?.getDetailGenres(genres: detailViewModel.gameDetail?.genres ?? []) ?? "")
                 .font(.system(size: 20))
                 .italic()
                 .fontWeight(.semibold)
@@ -78,19 +86,24 @@ struct DetailView: View {
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(viewModel.gameDetail?.released ?? "")
+            Text(detailViewModel.gameDetail?.released ?? "")
                 .font(.system(size: 20))
                 .italic()
                 .fontWeight(.semibold)
                 .padding(.leading, 15)
                 .padding(.bottom, 10)
                 .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    @ViewBuilder
+    private func createDetailContentView() -> some View {
+        VStack {
             Text("Overview")
                 .font(.system(size: 24))
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(viewModel.helper?.handleStringNoValue(data: viewModel.gameDetail?.description ?? "") ?? "")
+            Text(detailViewModel.helper?.handleStringNoValue(data: detailViewModel.gameDetail?.description ?? "") ?? "")
                 .font(.system(size: 14))
                 .italic()
                 .fontWeight(.regular)
@@ -102,7 +115,7 @@ struct DetailView: View {
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(String(viewModel.gameDetail?.rating ?? 0.0) + "/10")
+            Text(String(detailViewModel.gameDetail?.rating ?? 0.0) + "/10")
                 .font(.system(size: 20))
                 .italic()
                 .fontWeight(.semibold)
@@ -111,17 +124,18 @@ struct DetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
-    var trailerView: some View {
+    @ViewBuilder
+    private func createTrailerView() -> some View {
         VStack(spacing: 0) {
             Text("Trailer")
                 .font(.system(size: 24))
                 .fontWeight(.bold)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if !viewModel.gameTrailer.isEmpty {
+            if !detailViewModel.gameTrailer.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .center, spacing: 5) {
-                        ForEach(viewModel.gameTrailer) { trailer in
+                        ForEach(detailViewModel.gameTrailer) { trailer in
                             NavigationLink(destination: DetailTrailerView(videoLink: trailer.trailerMovie.link)) {
                                 VStack {
                                     TrailerCardView(trailer: trailer, constant: Constants())
@@ -145,6 +159,60 @@ struct DetailView: View {
                     Spacer()
                 }
             }
+        }
+    }
+    @ViewBuilder
+    private func createButtonFavorite() -> some View {
+        Button {
+            if favoriteViewModel.isFavorite {
+                guard let gameDetail = detailViewModel.gameDetail else {return}
+                favoriteViewModel.removeFromFavorite(context: context, id: gameDetail.id)
+                favoriteViewModel.isFavorite = false
+                detailViewModel.favoriteAlert = .removeFromFavorite
+            } else {
+                guard let gameDetail = detailViewModel.gameDetail else {return}
+                favoriteViewModel.addFavorite(context: context, data: gameDetail)
+                favoriteViewModel.isFavorite = true
+                detailViewModel.favoriteAlert = .addToFavorite
+            }
+            detailViewModel.showFavoriteAlert.toggle()
+        } label: {
+            Label {
+                Text(favoriteViewModel.isFavorite ? "Remove From Favorite" : "Add To Favorite")
+            } icon: {
+                Image(systemName: favoriteViewModel.isFavorite ? "heart.fill" : "heart")
+            }
+            .foregroundColor(darkModeEnabled ? .black : .white)
+            .padding(.vertical, 12)
+            .padding(.horizontal)
+            .background(darkModeEnabled ? .gray : .black, in: Capsule())
+        }
+        .padding(.top, 20)
+        .frame(maxWidth: .infinity)
+        .alert(isPresented: $detailViewModel.showFavoriteAlert) {
+            createAlertFavorite()
+        }
+    }
+    private func createAlertFavorite() -> Alert {
+        switch detailViewModel.favoriteAlert {
+        case .addToFavorite:
+            return Alert(
+                title: Text("Success"),
+                message: Text("Data Added To Favorite."),
+                dismissButton: .default(Text("Ok"))
+            )
+        case .removeFromFavorite:
+            return Alert(
+                title: Text("Success"),
+                message: Text("Data Removed From Favorite."),
+                dismissButton: .default(Text("Ok"))
+            )
+        default:
+            return Alert(
+                title: Text("Something Went Wrong"),
+                message: Text("Error..."),
+                dismissButton: .default(Text("Ok"))
+            )
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    @AppStorage("darkModeEnabled") private var darkModeEnabled: Bool = false
+    @AppStorage("darkModeEnabled") private var darkModeEnabled: Bool = Theme.isNotDarkMode
     var constant: Constants?
     init(constant: Constants) {
         self.constant = constant

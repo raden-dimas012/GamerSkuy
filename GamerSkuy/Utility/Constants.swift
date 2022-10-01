@@ -5,11 +5,8 @@
 //  Created by Raden Dimas on 11/09/22.
 //
 
-import Foundation
-
 struct Constants {
     let baseURL = "https://api.rawg.io/api/"
-    let apiKey = "key=1923047721a645bda224a2a46010ecdd"
     let detailBaseURL = "https://api.rawg.io/api/games"
     let name = "Name"
     let birth = "Birth"

@@ -10,16 +10,15 @@ import Foundation
 final class HomeViewModel: ObservableObject {
     @Published var games: [Game] = [Game]()
     @Published var genres: [Genre] = [Genre]()
-    @Published var filteredGames: [Game] = [Game]()
     @Published var selectedGenre: Int = 4
     @Published var currentPage: Int = 1
-    @Published var querySearch: String = ""
-    var services: APIServicesProtocol?
+    private var services: APIServicesProtocol?
     init(services: APIServicesProtocol) {
         self.services = services
     }
     deinit {
         self.services = nil
+        debugPrint("Deinit HomeViewModel")
     }
     func getGenres() {
         guard let services = services else {return}
@@ -47,12 +46,6 @@ final class HomeViewModel: ObservableObject {
             case .failure(let error):
                 debugPrint(error)
             }
-        }
-    }
-    func getFilteredGame(query: String) {
-        let filteredData = query.isEmpty ? games : games.filter({$0.name.contains(query)})
-        DispatchQueue.main.async {
-            self.filteredGames = filteredData
         }
     }
 }
