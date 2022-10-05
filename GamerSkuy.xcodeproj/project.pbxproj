@@ -11,6 +11,7 @@
 		34BA32ADCC4D8EE9C2F33B24 /* Pods_GamerSkuy_GamerSkuyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADDDBAECDB6A7047DD9F134 /* Pods_GamerSkuy_GamerSkuyUITests.framework */; };
 		3A8EE41E8137B70B29344122 /* Pods_GamerSkuy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42CDF41C032351BC34A5767 /* Pods_GamerSkuy.framework */; };
 		E90F4EC028D0172C00F7ADD4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F4EBF28D0172B00F7ADD4 /* ProfileViewModel.swift */; };
+		E91237C328EB148B006AEA9F /* Extenstion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91237C228EB148B006AEA9F /* Extenstion+String.swift */; };
 		E91CE85D28CEB7DA0030248A /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CE85C28CEB7DA0030248A /* Genre.swift */; };
 		E91CE85F28CEBB1B0030248A /* CategoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CE85E28CEBB1B0030248A /* CategoryCardView.swift */; };
 		E91CE86128CECD750030248A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CE86028CECD750030248A /* SettingsViewModel.swift */; };
@@ -28,9 +29,6 @@
 		E988602628CB6C5B00D5F850 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988602528CB6C5B00D5F850 /* HomeView.swift */; };
 		E988602828CB6C5C00D5F850 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E988602728CB6C5C00D5F850 /* Assets.xcassets */; };
 		E988602B28CB6C5C00D5F850 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E988602A28CB6C5C00D5F850 /* Preview Assets.xcassets */; };
-		E988603528CB6C5C00D5F850 /* GamerSkuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988603428CB6C5C00D5F850 /* GamerSkuyTests.swift */; };
-		E988603F28CB6C5C00D5F850 /* GamerSkuyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988603E28CB6C5C00D5F850 /* GamerSkuyUITests.swift */; };
-		E988604128CB6C5C00D5F850 /* GamerSkuyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988604028CB6C5C00D5F850 /* GamerSkuyUITestsLaunchTests.swift */; };
 		E995103128DD3DF100D218C0 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995103028DD3DF100D218C0 /* FavoriteView.swift */; };
 		E995103328DD3DFC00D218C0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995103228DD3DFC00D218C0 /* SearchView.swift */; };
 		E995103528DD3E0700D218C0 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995103428DD3E0700D218C0 /* FavoriteViewModel.swift */; };
@@ -84,6 +82,7 @@
 		7ADDDBAECDB6A7047DD9F134 /* Pods_GamerSkuy_GamerSkuyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GamerSkuy_GamerSkuyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42CDF41C032351BC34A5767 /* Pods_GamerSkuy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GamerSkuy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90F4EBF28D0172B00F7ADD4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		E91237C228EB148B006AEA9F /* Extenstion+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extenstion+String.swift"; sourceTree = "<group>"; };
 		E91CE85C28CEB7DA0030248A /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		E91CE85E28CEBB1B0030248A /* CategoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCardView.swift; sourceTree = "<group>"; };
 		E91CE86028CECD750030248A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -103,10 +102,7 @@
 		E988602728CB6C5C00D5F850 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E988602A28CB6C5C00D5F850 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E988603028CB6C5C00D5F850 /* GamerSkuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamerSkuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E988603428CB6C5C00D5F850 /* GamerSkuyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamerSkuyTests.swift; sourceTree = "<group>"; };
 		E988603A28CB6C5C00D5F850 /* GamerSkuyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamerSkuyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E988603E28CB6C5C00D5F850 /* GamerSkuyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamerSkuyUITests.swift; sourceTree = "<group>"; };
-		E988604028CB6C5C00D5F850 /* GamerSkuyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamerSkuyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E995103028DD3DF100D218C0 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		E995103228DD3DFC00D218C0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		E995103428DD3E0700D218C0 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
@@ -229,6 +225,7 @@
 				E9AC5E8A28CDE728001C7059 /* Enums.swift */,
 				E9AC5E8C28CDE8D7001C7059 /* ViewBuilder.swift */,
 				E969B93828E5C9920075C4A2 /* Extension+Date.swift */,
+				E91237C228EB148B006AEA9F /* Extenstion+String.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -277,8 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				E988602228CB6C5B00D5F850 /* GamerSkuy */,
-				E988603328CB6C5C00D5F850 /* GamerSkuyTests */,
-				E988603D28CB6C5C00D5F850 /* GamerSkuyUITests */,
 				E988602128CB6C5B00D5F850 /* Products */,
 				5280D09DF97000492CC71A7F /* Pods */,
 				00F7698A0EF9F10D69C5324C /* Frameworks */,
@@ -312,23 +307,6 @@
 			children = (
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		E988603328CB6C5C00D5F850 /* GamerSkuyTests */ = {
-			isa = PBXGroup;
-			children = (
-				E988603428CB6C5C00D5F850 /* GamerSkuyTests.swift */,
-			);
-			path = GamerSkuyTests;
-			sourceTree = "<group>";
-		};
-		E988603D28CB6C5C00D5F850 /* GamerSkuyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E988603E28CB6C5C00D5F850 /* GamerSkuyUITests.swift */,
-				E988604028CB6C5C00D5F850 /* GamerSkuyUITestsLaunchTests.swift */,
-			);
-			path = GamerSkuyUITests;
 			sourceTree = "<group>";
 		};
 		E995102E28DD3DD800D218C0 /* Search */ = {
@@ -726,6 +704,7 @@
 				E9AC5E8B28CDE728001C7059 /* Enums.swift in Sources */,
 				E99F0B1528D9ED55007BCA65 /* Profile.swift in Sources */,
 				E9AC5E8428CDE535001C7059 /* APIServices.swift in Sources */,
+				E91237C328EB148B006AEA9F /* Extenstion+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,7 +712,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E988603528CB6C5C00D5F850 /* GamerSkuyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,8 +719,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E988603F28CB6C5C00D5F850 /* GamerSkuyUITests.swift in Sources */,
-				E988604128CB6C5C00D5F850 /* GamerSkuyUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

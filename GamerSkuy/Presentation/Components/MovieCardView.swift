@@ -18,6 +18,7 @@ struct MovieCardView: View {
             KFImage.url(URL(string: fromFavorite ? favoriteGame?.backgroundImage ?? ""
                             : game?.backgroundImage ?? "") )
             .resizable()
+            .cacheMemoryOnly()
             .onSuccess { success in
                 debugPrint("success: \(success)")
             }
@@ -25,8 +26,9 @@ struct MovieCardView: View {
                 debugPrint("error: \(error)")
             }
             .placeholder { progress in
-                ProgressView(progress).frame(width: 150)
+                ProgressView(progress).frame(width: 100)
             }
+            .cancelOnDisappear(true)
             .fade(duration: 0.35)
             .frame(width: 100, height: 150)
             .cornerRadius(25)

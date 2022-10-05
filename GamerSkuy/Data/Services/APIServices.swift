@@ -35,8 +35,12 @@ final class APIServices: APIServicesProtocol {
     }
     func getGenres(completion: @escaping (Result<[Genre], Error>) -> Void) {
         guard let constant = constant else {return}
-        guard let url = URL(string: constant.baseURL + "genres?key=" + apiKey) else {return}
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        guard var components = URLComponents(string: constant.baseURL + "genres?") else {return}
+        components.queryItems = [
+            URLQueryItem(name: "key", value: apiKey)
+        ]
+        guard let finalComponents = components.url else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: finalComponents)) { data, response, error in
             guard let data = data, error == nil else {return}
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {
@@ -54,9 +58,14 @@ final class APIServices: APIServicesProtocol {
     }
     func getGames(genreID: Int, page: Int, completion: @escaping (Result<[Game], Error>) -> Void) {
         guard let constant = constant else { return }
-        guard let url = URL(string: constant.baseURL + "games?key=" + apiKey + "&page=\(page)"
-                            + "&genres=\(genreID)") else {return}
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        guard var components = URLComponents(string: constant.baseURL + "games?") else {return}
+        components.queryItems = [
+            URLQueryItem(name: "key", value: apiKey),
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "genres", value: String(genreID))
+        ]
+        guard let finalComponents = components.url else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: finalComponents)) { data, response, error in
             guard let data = data, error == nil else {return}
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {
@@ -73,9 +82,14 @@ final class APIServices: APIServicesProtocol {
         task.resume()
     }
     func getSearchGame(query: String, completion: @escaping (Result<[Game], Error>) -> Void) {
-        guard let constant = constant else {return}
-        guard let url = URL(string: constant.baseURL + "games?key=" + apiKey + "&search=\(query)") else {return}
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        guard let constant = constant else { return }
+        guard var components = URLComponents(string: constant.baseURL + "games?") else {return}
+        components.queryItems = [
+            URLQueryItem(name: "key", value: apiKey),
+            URLQueryItem(name: "search", value: query)
+        ]
+        guard let finalComponents = components.url else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: finalComponents)) { data, response, error in
             guard let data = data, error == nil else {return}
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {
@@ -92,9 +106,13 @@ final class APIServices: APIServicesProtocol {
         task.resume()
     }
     func getGameDetail(movieID: Int, completion: @escaping (Result<GameDetail, Error>) -> Void) {
-        guard let constant = constant else {return}
-        guard let url = URL(string: constant.detailBaseURL + "/\(movieID)?key=" + apiKey) else {return}
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        guard let constant = constant else { return }
+        guard var components = URLComponents(string: constant.detailBaseURL + "/\(movieID)") else {return}
+        components.queryItems = [
+            URLQueryItem(name: "key", value: apiKey)
+        ]
+        guard let finalComponents = components.url else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: finalComponents)) { data, response, error in
             guard let data = data, error == nil else {return}
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {
@@ -112,8 +130,12 @@ final class APIServices: APIServicesProtocol {
     }
     func getTrailer(movieID: Int, completion: @escaping (Result<[Trailer], Error>) -> Void) {
         guard let constant = constant else {return}
-        guard let url = URL(string: constant.detailBaseURL + "/\(movieID)/movies?key=" + apiKey) else {return}
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        guard var components = URLComponents(string: constant.detailBaseURL + "/\(movieID)/movies?") else {return}
+        components.queryItems = [
+            URLQueryItem(name: "key", value: apiKey)
+        ]
+        guard let finalComponents = components.url else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: finalComponents)) { data, response, error in
             guard let data = data, error == nil else {return}
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {

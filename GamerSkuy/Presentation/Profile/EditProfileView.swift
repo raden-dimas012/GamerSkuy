@@ -63,13 +63,26 @@ struct EditProfileView: View {
             Text("Name")
                 .font(.caption)
                 .foregroundColor(.gray)
-            TextField("", text: $viewModel.textName)
+            TextField(viewModel.profile?.name ?? "", text: $viewModel.textName)
                 .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
                 .frame(maxWidth: .infinity)
                 .padding(.top, 8)
+                .onChange(of: viewModel.textName) { newValue in
+                    if newValue.count > 50 {
+                        viewModel.showAlertValidateTexfield = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            viewModel.textName.removeAll()
+                        }
+                    } else {
+                        viewModel.showAlertValidateTexfield = false
+                    }
+                }
         }
         .padding(.top, 10)
+        .alert(isPresented: $viewModel.showAlertValidateTexfield) {
+            createAlert(type: .checkingTexfieldAlert)
+        }
         Divider()
         VStack(alignment: .leading, spacing: 12) {
             Text("Birth Day")
@@ -98,25 +111,51 @@ struct EditProfileView: View {
             Text("Email")
                 .font(.caption)
                 .foregroundColor(.gray)
-            TextField("", text: $viewModel.textEmail)
+            TextField(viewModel.profile?.email ?? "", text: $viewModel.textEmail)
                 .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
                 .frame(maxWidth: .infinity)
                 .padding(.top, 8)
+                .onChange(of: viewModel.textEmail) { newValue in
+                    if newValue.count > 50 {
+                        viewModel.showAlertValidateTexfield = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            viewModel.textEmail.removeAll()
+                        }
+                    } else {
+                        viewModel.showAlertValidateTexfield = false
+                    }
+                }
         }
         .padding(.top, 10)
+        .alert(isPresented: $viewModel.showAlertValidateTexfield) {
+            createAlert(type: .checkingTexfieldAlert)
+        }
         Divider()
         VStack(alignment: .leading, spacing: 12) {
             Text("Role")
                 .font(.caption)
                 .foregroundColor(.gray)
-            TextField("", text: $viewModel.textRole)
+            TextField(viewModel.profile?.role ?? "", text: $viewModel.textRole)
                 .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
                 .frame(maxWidth: .infinity)
                 .padding(.top, 8)
+                .onChange(of: viewModel.textRole) { newValue in
+                    if newValue.count > 50 {
+                        viewModel.showAlertValidateTexfield = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            viewModel.textRole.removeAll()
+                        }
+                    } else {
+                        viewModel.showAlertValidateTexfield = false
+                    }
+                }
         }
         .padding(.top, 10)
+        .alert(isPresented: $viewModel.showAlertValidateTexfield) {
+            createAlert(type: .checkingTexfieldAlert)
+        }
         Divider()
     }
     @ViewBuilder
@@ -126,7 +165,7 @@ struct EditProfileView: View {
                 viewModel.textEmail.isEmpty ||
                 viewModel.textRole.isEmpty ||
                 viewModel.validateEmail(email: viewModel.textEmail) {
-                viewModel.showAlert = true
+                viewModel.showAlertSaveData = true
             } else {
                 viewModel.saveDataProfile(
                     name: viewModel.textName,
@@ -134,7 +173,7 @@ struct EditProfileView: View {
                     email: viewModel.textEmail,
                     role: viewModel.textRole
                 )
-                viewModel.showAlert = false
+                viewModel.showAlertSaveData = false
                 viewModel.showDatePicker = false
                 env.dismiss()
             }
@@ -151,15 +190,24 @@ struct EditProfileView: View {
                 }
         }
         .padding(.top, 15)
-        .alert(isPresented: $viewModel.showAlert) {
-            createAlert()
+        .alert(isPresented: $viewModel.showAlertSaveData) {
+            createAlert(type: .checkingDataAlert)
         }
     }
-    private func createAlert() -> Alert {
-        return Alert(
-            title: Text("Something Went Wrong"),
-            message: Text("Please Fill All The Texfields & Make Sure Your Email Is Valid."),
-            dismissButton: .cancel()
-        )
+    private func createAlert(type: TextFieldAlert) -> Alert {
+        switch type {
+        case .checkingDataAlert:
+            return Alert(
+                title: Text("Something Went Wrong"),
+                message: Text("Please Fill All The Texfields & Make Sure Your Email Is Valid."),
+                dismissButton: .cancel()
+            )
+        case .checkingTexfieldAlert:
+            return Alert(
+                title: Text("Something Went Wrong"),
+                message: Text("Maximum Characters is 50"),
+                dismissButton: .cancel()
+            )
+        }
     }
 }

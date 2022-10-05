@@ -17,16 +17,16 @@ struct SearchBarView: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                 TextField("Search ..", text: $searchText)
-                .onChange(of: searchText, perform: { newValue in
-                    viewModel.querySearch = newValue
-                    viewModel.searchGame(query: newValue)
-                })
-                .onSubmit {
-                    withAnimation {
-                        viewModel.querySearch = searchText
-                        viewModel.searchGame(query: searchText)
+                    .onChange(of: searchText, perform: { newValue in
+                        viewModel.querySearch = newValue
+                        viewModel.searchGame(query: newValue)
+                    })
+                    .onSubmit {
+                        withAnimation {
+                            viewModel.querySearch = searchText
+                            viewModel.searchGame(query: searchText)
+                        }
                     }
-                }
             }
             .foregroundColor(.white)
             .padding(.leading, 13)

@@ -84,11 +84,12 @@ struct ProfileView: View {
                 Image(systemName: imageName)
                     .font(.title)
                 Text(profileText)
-                    .font(.title)
+                    .font(.title2)
+                    .lineLimit(2)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.leading, 20)
+        .padding(.horizontal, 20)
         .padding(.bottom, 10)
     }
 }

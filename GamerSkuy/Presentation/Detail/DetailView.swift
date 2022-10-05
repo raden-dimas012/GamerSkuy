@@ -38,6 +38,7 @@ struct DetailView: View {
     private func createTopImageView() -> some View {
         KFImage.url(URL(string: detailViewModel.gameDetail?.backgroundImage ?? ""))
             .resizable()
+            .cacheMemoryOnly()
             .onSuccess { success in
                 debugPrint("success: \(success)")
             }
@@ -47,6 +48,7 @@ struct DetailView: View {
             .placeholder { progress in
                 ProgressView(progress).frame(width: 330, height: 220)
             }
+            .cancelOnDisappear(true)
             .fade(duration: 0.35)
             .frame(width: 330, height: 220)
             .cornerRadius(25)

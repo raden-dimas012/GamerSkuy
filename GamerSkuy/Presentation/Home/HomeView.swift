@@ -54,7 +54,6 @@ struct HomeView: View {
                 ) {
                         MovieCardView(fromFavorite: false, game: game, favoriteGame: nil, helper: Helper())
                         .drawingGroup()
-
                     }
                 if game == viewModel.games.last {
                     LoadingView()

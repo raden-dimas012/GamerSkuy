@@ -14,7 +14,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var textEmail: String = ""
     @Published var textRole: String = ""
     @Published var showDatePicker: Bool = false
-    @Published var showAlert: Bool = false
+    @Published var showAlertSaveData: Bool = false
+    @Published var showAlertValidateTexfield: Bool = false
     @Published var profile: Profile?
     var constant: Constants?
     private var name: String {
@@ -71,13 +72,13 @@ final class ProfileViewModel: ObservableObject {
     func getDataFromUserDefaults() {
         guard let constant = constant else {return}
         DispatchQueue.main.async {
-            self.profile = .init(
+            self.profile = Profile(
                 name: self.name,
                 birth: self.birth,
                 email: self.email,
                 role: self.role,
-                image: constant.myPhoto
-            )
+                image: constant.myPhoto)
+            self.textBirth = self.birth.stringToDate()
         }
     }
     func validateEmail(email: String) -> Bool {

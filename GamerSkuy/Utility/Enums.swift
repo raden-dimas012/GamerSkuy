@@ -17,3 +17,7 @@ enum Theme {
 enum FavoriteAlerts {
     case addToFavorite, removeFromFavorite
 }
+
+enum TextFieldAlert {
+    case checkingDataAlert, checkingTexfieldAlert
+}
